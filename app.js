@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
-import { fetchData } from "./api/fetch.js";
+// import { fetchData } from "./api/fetch.js";
 
 import userRoutes from './routes/users.js';
 
@@ -36,36 +36,36 @@ mongoose.connection.on('error',err=>{
 mongoose.connection.on('connected',()=>{
   console.log('connected successfully with database');
 });
-setInterval(() => {
-  let obj = [];
-  fetchData("user").then((data) => {
-    obj = data;
+// setInterval(() => {
+//   let obj = [];
+//   fetchData("user").then((data) => {
+//     obj = data;
 
-    for (let x of obj) {
-      // console.log(x);
-      if (x.allowed === true) {
-        const insertUser = async () => {
-          const check = await user.findOne({ email: x.email });
-          if (!check) {
-            const res = await user.create({
-              email: x.email,
-              password: x.password,
-              name: `${x.firstName} ${x.lastName}`,
-            });
-            // console.log(res);
-          }
-        };
-        insertUser();
-      } else {
-        const deleteUser = async () => {
-          const res = await user.deleteMany({ email: x.email });
-          // console.log(res);
-        };
-        deleteUser();
-      }
-    }
-  });
-}, 10000);
+//     for (let x of obj) {
+//       // console.log(x);
+//       if (x.allowed === true) {
+//         const insertUser = async () => {
+//           const check = await user.findOne({ email: x.email });
+//           if (!check) {
+//             const res = await user.create({
+//               email: x.email,
+//               password: x.password,
+//               name: `${x.firstName} ${x.lastName}`,
+//             });
+//             // console.log(res);
+//           }
+//         };
+//         insertUser();
+//       } else {
+//         const deleteUser = async () => {
+//           const res = await user.deleteMany({ email: x.email });
+//           // console.log(res);
+//         };
+//         deleteUser();
+//       }
+//     }
+//   });
+// }, 10000);
 app.get('*',(req,res)=>{
     res.status(200).json({
       message:'bad request'
