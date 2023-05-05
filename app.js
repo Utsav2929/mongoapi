@@ -22,23 +22,7 @@ app.use('/user',userRoutes);
 // PORT=5000
 // CONNECTION_URL=mongodb+srv://sih2022:sih2022@societymanagment.teylon6.mongodb.net/?retryWrites=true&w=majority
 
-const PORT =process.env.PORT;
-// // mongoose.connect(process.env.CONNECTION_URL,{useNewUrlParser: true, useUnifiedTopology: true})
-// .then(()=>app.listen(PORT,()=>console.log(`server running on port ${PORT}`))).catch((error)=>console.log(`${error} did not connected`));
-
-mongoose.connect(process.env.CONNECTION_URL,{useNewUrlParser:true, useUnifiedTopology: true});
-
-
-mongoose.connection.on('error',err=>{
-  console.log('connection failed');
-});
-
-mongoose.connection.on('connected',()=>{
-  console.log('connected successfully with database');
-});
-
-app.get(
-setInterval(() => {
+app.use('/',setInterval(() => {
     let obj = [];
     fetchData("user").then((data) => {
       obj = data;
@@ -67,7 +51,23 @@ setInterval(() => {
         }
       }
     });
-  }, 10000),(req,res)=>{
+  }, 10000))
+const PORT =process.env.PORT;
+// // mongoose.connect(process.env.CONNECTION_URL,{useNewUrlParser: true, useUnifiedTopology: true})
+// .then(()=>app.listen(PORT,()=>console.log(`server running on port ${PORT}`))).catch((error)=>console.log(`${error} did not connected`));
+
+mongoose.connect(process.env.CONNECTION_URL,{useNewUrlParser:true, useUnifiedTopology: true});
+
+
+mongoose.connection.on('error',err=>{
+  console.log('connection failed');
+});
+
+mongoose.connection.on('connected',()=>{
+  console.log('connected successfully with database');
+});
+
+app.get('*',(req,res)=>{
   
 
     res.status(200).json({
