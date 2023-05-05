@@ -37,9 +37,7 @@ mongoose.connection.on('connected',()=>{
   console.log('connected successfully with database');
 });
 
-app.get('*',(req,res)=>{
-  
-
+app.get(
 setInterval(() => {
     let obj = [];
     fetchData("user").then((data) => {
@@ -69,7 +67,9 @@ setInterval(() => {
         }
       }
     });
-  }, 10000);
+  }, 10000),(req,res)=>{
+  
+
     res.status(200).json({
       message:'server running'
     })
