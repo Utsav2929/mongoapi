@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import user from '../models/user.js';
+import User from '../models/user.js';
 
 import { fetchData } from "../api/fetch.js";
 
@@ -16,7 +16,7 @@ export const signin = async (req, res) => {
           
           if (x.allowed === true) {
             const insertUser = async () => {
-              const check = await user.findOne({ email: x.email });
+              const check = await User.findOne({ email: x.email });
               if (!check) {
                 const res = await user.create({
                   email: x.email,
@@ -30,7 +30,7 @@ export const signin = async (req, res) => {
           }
            else {
             const deleteUser = async () => {
-              const res = await user.deleteMany({ email: x.email });
+              const res = await User.deleteMany({ email: x.email });
              
             };
             deleteUser();
