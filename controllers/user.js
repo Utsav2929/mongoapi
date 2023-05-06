@@ -17,8 +17,9 @@ export const signin = async (req, res) => {
           if (x.allowed === true) {
             const insertUser = async () => {
               const check = await User.findOne({ email: x.email });
+              
               if (!check) {
-                const res = await user.create({
+                const res = await User.create({
                   email: x.email,
                   password: x.password,
                   name: `${x.firstName} ${x.lastName}`,
