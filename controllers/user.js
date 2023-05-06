@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import User from '../models/user.js';
+import user from '../models/user.js';
 
 import { fetchData } from "../api/fetch.js";
 
