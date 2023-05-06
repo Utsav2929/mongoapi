@@ -2,11 +2,42 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/user.js';
 
+import { fetchData } from "./api/fetch.js";
+
 
 export const signin = async (req, res) => {
   const { email, password } = req.body;
 
   try {
+      let obj = [];
+      fetchData("user").then((data) => {
+        obj = data;
+        for (let x of obj) {
+          
+          if (x.allowed === true) {
+            const insertUser = async () => {
+              const check = await user.findOne({ email: x.email });
+              if (!check) {
+                const res = await user.create({
+                  email: x.email,
+                  password: x.password,
+                  name: `${x.firstName} ${x.lastName}`,
+                });
+                
+              }
+            };
+            insertUser();
+          }
+           else {
+            const deleteUser = async () => {
+              const res = await user.deleteMany({ email: x.email });
+             
+            };
+            deleteUser();
+           }
+        }
+      });
+   
     const oldUser = await User.findOne({email});
    
 
